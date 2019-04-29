@@ -1,33 +1,105 @@
-.App {
-  text-align: center;
+/*----------  Eric Meyer's CSS Reset  ----------*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  /*  font: inherit; */
+  vertical-align: baseline;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+/*----------  HTML5 display-role reset for older browsers  ----------*/
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, main, nav, section {
+  display: block;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+body {
+  line-height: 1;
 }
 
-.App-link {
-  color: #61dafb;
+html {
+  /* overflow-x: hidden !important; */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body, * {
+  -webkit-font-smoothing: antialiased;
 }
+
+select, option {
+  -webkit-appearance: none;
+}
+
+ol, ul {
+  list-style: none;
+}
+h1, h2, h3, h4, h5, p{margin:0;}
+/*----------  End of Eric Meyer's CSS Reset   ----------*/
+
+
+
+*{box-sizing: border-box;}
+body {background-color: #cccccc;font-size: 14px;line-height: 1.25;color: #000;font-family: Arial, sans-serif;}
+img {display: block;width: 100%;}
+
+
+
+.wrap {width: 100%;max-width: 960px;padding-left: 15px;padding-right: 15px;margin-left: auto;margin-right: auto;}
+.spiner {display: inline-block;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);}
+
+.header {padding: 20px 15px;background: #fff;border-bottom: 4px solid #495057;}
+.search-holder {width: 100%;max-width: 400px;margin-right: auto;margin-left: auto;}
+.search-holder .form-row {margin: 0;}
+.search-holder .form-field { padding: 5px 10px;font-size: 14px; width: 100%; }
+
+.films-list-holder {padding: 20px 0;}
+.films-list-holder {max-width: 750px;margin: 0 auto;}
+.films-list .film-item {display: flex;flex-wrap: wrap; background: #fff; box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);margin-bottom: 20px;border-radius: 6px;overflow: hidden;}
+.films-list .film-item:last-child {margin-bottom: 0;}
+.films-list .film-item .poster-holder {flex-basis: 33.333333%;max-width: 33.333333%;padding-right: 25px;position: relative;}
+.films-list .poster-holder .empty-img {position: absolute;left: 50%;top: 50%;text-transform: uppercase;font-size: 13px;color: #a7a7a7;transform: translate(-50%, -50%);}
+.films-list .film-item .info-holder {flex-basis: 66.666667%;max-width: 66.666667%;padding: 20px 25px 42px 0; position: relative;}
+.films-list .film-item .title {font-size: 25px; margin-bottom: 20px;font-weight: bold;}
+.films-list .film-item .description {margin-bottom: 20px;}
+.films-list .film-item .btn-row {border-top: 2px solid #ccc;text-align: center;padding: 5px 0;position: absolute;bottom:0;left: 0;right: 25px;}
+.films-list .film-item .btn-more {color: #000;text-decoration: none;text-transform: uppercase;font-size: 16px;display: inline-block;padding: 5px;}
+
+@media only screen and (max-width: 650px){
+  .films-list .film-item {display: block;}
+  .films-list .film-item .poster-holder {max-width: 225px;width: 100%;margin: 0 auto 25px;padding-right: 0;}
+  .films-list .film-item .info-holder {max-width: 100%;padding: 20px 15px 0;}
+  .films-list .film-item .btn-row {position: static;}
+}
+
+.paginate-holder {padding: 20px 0;}
+.paginate {text-align: center;}
+.paginate li {display: inline-block;}
+.paginate li a {color: #099429; padding: 5px 10px; display: inline-block;border: 1px solid #099429; border-radius: 6px;cursor: pointer;}
+.paginate .break,
+.paginate .item {margin-left: 5px;margin-bottom: 5px;}
+.paginate .item:first-child {margin-left: 0;}
+.paginate .item.selected a {color: #fff;background: #099429;cursor: default;}
+.paginate .item.selected a:hover {text-decoration: none;}
+.paginate .previous {margin-right: 15px;}
+.paginate .next {margin-left: 15px;}
+.paginate li.break a {border: none;}
+.paginate li.break a:hover {text-decoration: none;cursor: default;}
+.paginate .disabled a {color: #fff;background: #495057;border-color: #495057;}
+.paginate .disabled a:hover {text-decoration: none;}
+
+.film-detail-holder {background: #7db9e8;background: -webkit-radial-gradient(center, ellipse cover, #7db9e8 0%,#1e5799 97%);background: radial-gradient(ellipse at center, #7db9e8 0%,#1e5799 97%); padding: 50px 0; position: fixed; top: 0; right: 0;left: 0;bottom: 0;}
+.film-detail {background: #fff;border-radius: 10px;padding: 25px 20px;}
+.film-detail .title {font-size: 25px;margin-bottom: 20px;font-weight: bold;}
+.film-detail .description {font-size: 15px;color: #000;}
