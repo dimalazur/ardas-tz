@@ -7,18 +7,13 @@ const FilmDetailWrapper = ({filmDetail}) => {
   return (
     <FilmDetail item={filmDetail} />
   );
-}
+};
 
 const mapStateToProps = (state) => {
   return {
     filmDetail: state.filmsStore.filmDetail
   }
-}
-
-const FilmDetailWrapperConnect = connect(
-  mapStateToProps,
-  null
-)(FilmDetailWrapper);
+};
 
 FilmDetailWrapper.propTypes = {
   filmDetail: PropTypes.shape({
@@ -38,4 +33,4 @@ FilmDetailWrapper.propTypes = {
   })
 };
 
-export default FilmDetailWrapperConnect;
+export default connect(mapStateToProps, null)(FilmDetailWrapper);

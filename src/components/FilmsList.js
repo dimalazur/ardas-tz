@@ -9,7 +9,7 @@ const FilmsList = ({list, onSetFilmDetail}) => {
           <ul className="films-list">
             {list.map( item=> (
               <FilmsListItem 
-                key={item.id*Math.random()} 
+                key={item.id}
                 id={item.id} 
                 onSetFilmDetail={onSetFilmDetail} 
                 title={item.title} 

@@ -22,8 +22,9 @@ function* getFilms(actions) {
 
   try {
     const res = yield call(authApi.getFilms);
+    yield put(failure("ffff"));
       
-    yield put(success(res.data));
+    //yield put(success(res.data));
   } catch (e) {
     yield put(failure(e));
   }
@@ -34,7 +35,7 @@ function* getFilmsPage(actions) {
   const failure = payload => ({ type: GET_FILMS_PAGE_FAILURE, payload });
 
   try {
-    const res = yield call(()=> authApi.getFilmsPage(actions.payload));
+    const res = yield call(authApi.getFilmsPage, actions.payload);
     yield put(success(res.data,actions.payload));
   } catch (e) {
     yield put(failure(e));
@@ -47,7 +48,7 @@ function* getSearchFilms(actions) {
 
   try {
     const searchTerms = actions.payload.replace(" ", "+");
-    const res = yield call(()=> authApi.searchFilms(searchTerms));
+    const res = yield call( authApi.searchFilms, searchTerms);
     if (res.data.total_results){
       yield put(success(res.data));
     }

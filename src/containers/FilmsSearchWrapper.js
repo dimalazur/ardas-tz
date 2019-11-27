@@ -14,10 +14,9 @@ class FilmsSearchWrapper extends Component {
     this.state = {
       searchTerms: ""
     }
-    this.onChangeSearchForm= this.onChangeSearchForm.bind(this);
   }
 
-  onChangeSearchForm(event){
+  onChangeSearchForm = (event)=> {
     event.preventDefault();
     const {onFilmsSearchRequest} = this.props;
     let searchTerms = event.target.value;
@@ -26,10 +25,7 @@ class FilmsSearchWrapper extends Component {
     });
 
     if( searchTerms.length > 0 ){
-      setTimeout(()=> {
         onFilmsSearchRequest(searchTerms);
-      },450);
-
     } else {
       const { onSetDefaultRender, onGetFilmsRequest } = this.props;
       onSetDefaultRender();
@@ -60,12 +56,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(setDefaultRender(payload))
     }
   }
-}
-
-const FilmsSearchWrapperConnect = connect(
-  null,
-  mapDispatchToProps
-)(FilmsSearchWrapper);
+};
 
 FilmsSearchWrapper.propTypes = {
   onFilmsSearchRequest: PropTypes.func,
@@ -73,4 +64,4 @@ FilmsSearchWrapper.propTypes = {
   onSetDefaultRender: PropTypes.func
 };
 
-export default FilmsSearchWrapperConnect;
+export default connect(null, mapDispatchToProps)(FilmsSearchWrapper);

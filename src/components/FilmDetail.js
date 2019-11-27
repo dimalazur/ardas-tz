@@ -1,18 +1,24 @@
 import React from 'react';
+import {NavLink, Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const FilmDetail = ({item}) => {
-	return (
-	    <div className="film-detail-holder">
-		    <div className="wrap">
-			    <div className="film-detail">
-					<h1 className="title">{item.title}</h1>
-					<p className="description">{item.overview}</p>
-			    </div>
-		    </div>
-	    </div>
-	);    
-}
+    if(item){
+        return (
+            <div className="film-detail-holder">
+                <div className="wrap">
+                    <NavLink to="/" className="btn btn-primary btn-back">Back</NavLink>
+                    <div className="film-detail">
+                        <h1 className="title">{item.title}</h1>
+                        <p className="description">{item.overview}</p>
+                    </div>
+                </div>
+            </div>
+        )
+    } else {
+       return <Redirect to="/" />
+    }
+};
 
 FilmDetail.propTypes = {
 	item: PropTypes.shape({

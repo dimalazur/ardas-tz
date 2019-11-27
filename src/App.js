@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import FilmsListWrapper from './containers/FilmsListWrapper';
 import FilmDetailWrapper from './containers/FilmDetailWrapper';
-import PrivateRoute from './containers/private_route';
 import './App.css';
 import {
   BrowserRouter,
@@ -16,7 +15,7 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={FilmsListWrapper} />
-            <PrivateRoute exact path="/film-detail" component={FilmDetailWrapper} />
+            <Route exact path="/film-detail" component={FilmDetailWrapper} />
           </Switch>
       </BrowserRouter>
       </div>

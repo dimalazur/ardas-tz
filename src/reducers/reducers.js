@@ -5,7 +5,8 @@ import {
   SET_FILM_DETAIL,
   GET_FILMS_PAGE_SUCCESS,
   FILMS_SEARCH_SUCCESS,
-  SET_DEFAULT_RENDER
+  SET_DEFAULT_RENDER,
+  GET_FILMS_FAILURE
 } from '../actions/actions';
 
 const initialState = {
@@ -15,7 +16,9 @@ const initialState = {
   filmDetail: null,
   pageNumber: 1,
   pageTotal: 1,
-}
+  isPending: true,
+  error: false
+};
 
 function filmsStore (state = initialState, action)  {
   switch (action.type) {
@@ -25,6 +28,15 @@ function filmsStore (state = initialState, action)  {
         filmsList: [...action.payload.results],
         pageNumber: action.payload.page,
         pageTotal: action.payload.total_pages,
+        isPending: false,
+        error: false
+      };
+    }
+    case GET_FILMS_FAILURE: {
+      return {
+        ...state,
+        isPending: false,
+        error: action.payload
       };
     }
     case SET_DEFAULT_RENDER:{
@@ -64,6 +76,6 @@ function filmsStore (state = initialState, action)  {
 
 const filmsReducers = combineReducers({
   filmsStore
-})
+});
 
-export default filmsReducers
+export default filmsReducers;

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FilmsList from '../components/FilmsList';
 import FilmsSearchWrapper from './FilmsSearchWrapper';
-import { RotateLoader } from 'react-spinners';
 import ReactPaginate from 'react-paginate';
+import Spiner from '../components/Spiner';
 import {
   getFilmsRequest,
   setFilmDetail,
@@ -16,7 +16,7 @@ class FilmsListWrapper extends Component {
     super(props);
     this.state = {
       changeStatus:''
-    }
+    };
     this.changePage = this.changePage.bind(this);
   }
 
@@ -33,11 +33,13 @@ class FilmsListWrapper extends Component {
   render() {
 
     const { 
-      filmsList,
-      pageTotal,
-      onSetFilmDetail,
-      searchResult,
-      renderFlag
+        filmsList,
+        pageTotal,
+        onSetFilmDetail,
+        searchResult,
+        renderFlag,
+        isPending,
+        error
     } = this.props;
     const renderFilms = (renderFlag) ? filmsList : searchResult;
 
@@ -46,29 +48,29 @@ class FilmsListWrapper extends Component {
         <div className="header">
           <FilmsSearchWrapper />
         </div>
-        { (filmsList.length || searchResult.length) ?
+        { (!isPending) ?
             <div className="wrap">
-              <FilmsList list={renderFilms} onSetFilmDetail={onSetFilmDetail}/>
-              <div className="paginate-holder">
-                <ReactPaginate 
-                  containerClassName="paginate"
-                  pageClassName="item"
-                  pageCount={pageTotal} 
-                  pageRangeDisplayed={2} 
-                  marginPagesDisplayed={2}
-                  onPageChange={this.changePage} 
-                />
-              </div>
+                {(!error)?
+                    <>
+                        <FilmsList list={renderFilms} onSetFilmDetail={onSetFilmDetail}/>
+                        <div className="paginate-holder">
+                            <ReactPaginate
+                                containerClassName="paginate"
+                                pageClassName="item"
+                                pageCount={pageTotal}
+                                pageRangeDisplayed={2}
+                                marginPagesDisplayed={2}
+                                onPageChange={this.changePage}
+                            />
+                        </div>
+                    </>
+                    :
+                    <div className="error">Error requesting movies</div>
+                }
+
             </div>
-          : 
-          <div className="spiner">
-            <RotateLoader
-              sizeUnit={"px"}
-              size={12}
-              margin={'2px'}
-              color={'#36d7b7'}
-            />
-          </div>
+          :
+          <Spiner/>
         }
       </React.Fragment>
     );
@@ -80,9 +82,11 @@ const mapStateToProps = (state) => {
     filmsList: state.filmsStore.filmsList,
     pageTotal: state.filmsStore.pageTotal,
     searchResult: state.filmsStore.searchResult,
-    renderFlag: state.filmsStore.renderFlag
+    renderFlag: state.filmsStore.renderFlag,
+      isPending: state.filmsStore.isPending,
+      error: state.filmsStore.error
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -96,12 +100,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(setFilmDetail(payload))
     }
   }
-}
-
-const FilmsListWrapperConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FilmsListWrapper);
+};
 
 FilmsListWrapper.propTypes = {
   filmsList: PropTypes.arrayOf(
@@ -145,4 +144,4 @@ FilmsListWrapper.propTypes = {
   onSetFilmDetail: PropTypes.func,
 };
 
-export default FilmsListWrapperConnect;
+export default connect(mapStateToProps, mapDispatchToProps)(FilmsListWrapper);
